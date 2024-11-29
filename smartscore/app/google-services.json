@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "171406874548",
+    "project_id": "smartscore-bf220",
+    "storage_bucket": "smartscore-bf220.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:171406874548:android:9928a25ef2e317f77a04e1",
+        "android_client_info": {
+          "package_name": "com.example.smartscore"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDRJeDqrFNu925T6q-dWWy9UN3GqKqk6Uc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
