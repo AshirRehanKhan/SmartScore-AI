@@ -1,0 +1,93 @@
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Progress Tracking</title>
+    <link rel="stylesheet" href="Progress.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="navbar">
+        <h1>SmartScore AI</h1>
+        <div class="nav-links">
+            <span>Dashboard</span>
+            <span class="active">Progress Tracking</span>
+            <span><a href = "RiskAssessment.html">Risk Assessment</a></span>
+            <span>Attendance</span>
+            <span>Study Material</span>
+        </div>
+    </div>
+    <div class="container">
+        <aside class="sidebar">
+            <div class="sidebar-logo">
+                <h2>Menu</h2>
+            </div>
+            <!-- Toggle Button (Hamburger Icon) -->
+            <button class="toggle-sidebar" onclick="toggleSidebar()">&#9776;</button>
+            <ul>
+                <li>Dashboard</li>
+                <li>Attendance</li>
+                <li class="active">Progress Tracking</li>
+                <li><a href= "RiskAssessment.html">Risk Assessment</a></li>
+                <li>Study Material</li>
+                
+                <li class="bottom-settings">
+                    <i class="fas fa-cog"></i> Settings
+                </li>
+            </ul>
+        </aside>
+        <!-- Modal for Adding a New Student -->
+<div id="add-student-modal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Add New Student</h2>
+        <form id="add-student-form">
+            <label for="name">Student Name:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="attendance">Attendance (out of 20):</label>
+            <input type="number" id="attendance" name="attendance" max="20" required>
+
+            <label for="assignments">Assignments Completed (out of 12):</label>
+            <input type="number" id="assignments" name="assignments" max="12" required>
+
+            <button type="submit">Add Student</button>
+        </form>
+    </div>
+</div>
+
+        <main class="main-content">
+            <header>
+                <h1>Progress Tracking</h1>
+                <button class="add-new">+ Add New</button> <!-- Moved button here -->
+                <div class="actions">
+                    <input type="text" class="search-bar" placeholder="Search students...">
+                    <div class="user-settings">
+                        <span>User Avatar</span>
+                    </div>
+                </div>
+            </header>
+            <section class="table-container">
+                <table id = "student-table">
+                    <thead>
+                        <tr>
+                            <th>Image</th>
+                            <th>Student Name</th>
+                            <th>Assignments Completed</th>
+                            <th>Attendance</th>
+                            <th>Pie Chart (Assignments)</th>
+                            <th>Bar Chart (Attendance)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-body">
+                        <!-- Rows will be dynamically populated by JavaScript -->
+                    </tbody>
+                </table>
+            </section>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

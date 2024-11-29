@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Risk Assessment</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="navbar">
+        <h1>SmartScore AI</h1>
+        <div class="nav-links">
+            <span>Dashboard</span>
+            <span>Attendance</span>
+            <span><a href="Progress.html">Progress Tracking</a></span>
+            <span>Risk Assessment</span>
+            <span>Study Material</span>
+        </div>
+    </div>
+    <div class="container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>Menu</h2>
+                <button class="sidebar-toggle" onclick="toggleSidebar()">☰</button>
+            </div>
+            <ul>
+                <li>Dashboard</li>
+                <li>Attendance</li>
+                <li><a href = "Progress.html">Progress Tracking</a></li>
+                <li class="active">Risk Assessment</li>
+                <li>Study Material</li>
+            </ul>
+            <div class="settings">
+                <button class="settings-icon">⚙️</button>
+                <span>Settings</span>
+            </div>
+        </aside>
+        <main class="main-content">
+            <header>
+                <h1>Risk Assessment</h1>
+                <div class="actions">
+                    <button class="add-new" onclick="openAddStudentModal()">+ Add New</button>
+                    <input type="text" class="search-bar" id="search-bar" placeholder="Search..." onkeyup="liveSearch()">
+                    <div class="user-settings">
+                        <span>User Avatar</span>
+                    </div>
+                </div>
+            </header>
+            <section class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Image</th>
+                            <th>Student Name</th>
+                            <th>Enrollment Date</th>
+                            <th>Overall Risk %</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="student-table">
+                        <tr>
+                            <td><img src="student1.jpg" alt="Student" width="50"></td>
+                            <td>Arlene McCoy</td>
+                            <td>August 2, 2013</td>
+                            <td>1%</td>
+                            <td class="status safe">Safe</td>
+                        </tr>
+                        <tr>
+                            <td><img src="student2.jpg" alt="Student" width="50"></td>
+                            <td>Marvin Fisher</td>
+                            <td>January 15, 2015</td>
+                            <td>3%</td>
+                            <td class="status safe">Safe</td>
+                        </tr>
+                        <tr>
+                            <td><img src="student3.jpg" alt="Student" width="50"></td>
+                            <td>Kathryn Murphy</td>
+                            <td>April 12, 2016</td>
+                            <td>15%</td>
+                            <td class="status moderate">Moderate Risk</td>
+                        </tr>
+                        <tr>
+                            <td><img src="student4.jpg" alt="Student" width="50"></td>
+                            <td>Albert Flores</td>
+                            <td>March 23, 2017</td>
+                            <td>28%</td>
+                            <td class="status danger">Danger</td>
+                        </tr>
+                        <tr>
+                            <td><img src="student5.jpg" alt="Student" width="50"></td>
+                            <td>Theresa Webb</td>
+                            <td>July 10, 2018</td>
+                            <td>50%</td>
+                            <td class="status moderate">Moderate</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+        </main>
+    </div>
+
+    <!-- Modal for Adding Student -->
+    <div id="add-student-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeAddStudentModal()">×</span>
+            <h2>Add New Student</h2>
+            <form id="add-student-form">
+                <label for="student-name">Student Name:</label>
+                <input type="text" id="student-name" name="student-name" required>
+                <label for="enrollment-date">Enrollment Date:</label>
+                <input type="date" id="enrollment-date" name="enrollment-date" required>
+                <label for="risk-percent">Risk Percentage:</label>
+                <input type="number" id="risk-percent" name="risk-percent" min="0" max="100" required>
+                <button type="submit">Add Student</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Toggle Sidebar
+        function toggleSidebar() {
+            const sidebar = document.querySelector('.sidebar');
+            sidebar.classList.toggle('collapsed');
+        }
+
+        // Modal Handling Functions
+        function openAddStudentModal() {
+            document.getElementById('add-student-modal').style.display = 'block';
+        }
+
+        function closeAddStudentModal() {
+            document.getElementById('add-student-modal').style.display = 'none';
+        }
+
+        // Live Search Functionality
+        function liveSearch() {
+            const input = document.getElementById('search-bar').value.toLowerCase();
+            const rows = document.getElementById('student-table').getElementsByTagName('tr');
+            
+            // Loop through table rows and hide those that don't match the search
+            for (let i = 0; i < rows.length; i++) {
+                const studentName = rows[i].getElementsByTagName('td')[1];
+                if (studentName) {
+                    const nameText = studentName.textContent || studentName.innerText;
+                    if (nameText.toLowerCase().indexOf(input) > -1) {
+                        rows[i].style.display = "";
+                    } else {
+                        rows[i].style.display = "none";
+                    }
+                }
+            }
+        }
+
+        // Add Student Functionality
+        document.getElementById('add-student-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const studentName = document.getElementById('student-name').value;
+            const enrollmentDate = document.getElementById('enrollment-date').value;
+            const riskPercent = document.getElementById('risk-percent').value;
+            let status = '';
+
+            // Determine Status based on Risk Percentage
+            if (riskPercent < 10) {
+                status = 'Safe';
+            } else if (riskPercent < 30) {
+                status = 'Moderate';
+            } else {
+                status = 'Danger';
+            }
+
+            // Create New Row in the Table
+            const tableBody = document.getElementById('student-table');
+            const newRow = document.createElement('tr');
+            newRow.innerHTML = `
+                <td><img src="default.jpg" alt="Student" width="50"></td>
+                <td>${studentName}</td>
+                <td>${enrollmentDate}</td>
+                <td>${riskPercent}%</td>
+                <td class="status ${status.toLowerCase()}">${status}</td>
+            `;
+            tableBody.appendChild(newRow);
+
+            // Close Modal
+            closeAddStudentModal();
+        });
+    </script>
+
+</body>
+</html>
